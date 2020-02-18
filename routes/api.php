@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
     Route::post('/formulario/pesados', 'FormularioController@pesados'); // Form Pesados
-    Route::post('/formulario/repuestos', 'FormularioController@repuestos'); // Form Pesados
+    Route::post('/formulario/repuestos', 'FormularioController@repuestos'); // Form Repuestos
     // Route::get('/vin/{vin}', 'API\CoreController@obtener_vin');
     // Route::get('/repuestos/ciudades/{estado}', 'API\CoreController@ciudades_repuestos');
     // Route::get('/repuestos/modelos/{estado}', 'API\CoreController@modelos_repuestos');
