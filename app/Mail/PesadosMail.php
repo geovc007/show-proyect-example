@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class PosventaMail extends Mailable
+class PesadosMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,7 +16,6 @@ class PosventaMail extends Mailable
      *
      * @return void
      */
-
     public $data;
 
     public function __construct($data)

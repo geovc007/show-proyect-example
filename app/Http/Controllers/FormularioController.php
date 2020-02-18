@@ -35,6 +35,9 @@ class FormularioController extends Controller
             if($pesados == true)
             {
                 $data = [
+                    'subject'   => 'Informacion Pesados - '.strtoupper($request->vehiculo_modelo_nombre),
+                    'from'      => 'hyundai@curbe.com.ec',
+                    'from_name' => 'Hyundai Ecuador',
                     'nombre'=> $request->nombre,
                     'apellido' => $request->apellido,
                     'celular' => $request->celular,
