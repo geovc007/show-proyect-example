@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Mail\PesadosMail;
+use App\Mail\RepuestosMail;
 use Mail;
 
 class FormularioController extends Controller
@@ -78,9 +79,9 @@ class FormularioController extends Controller
                     'email' => $request->email,
                     'ciudad' => $request->ciudad,
                     'modelo' => $request->vehiculo_modelo_nombre,
+                    'repuesto' => $request->vehiculo_repuesto,
                     'anio' => $request->vehiculo_anio,
                     'chasis' => $request->vehiculo_chasis,
-                    'comentarios' => $request->comentarios,
                     'fecha_creacion' => date("Y-m-d H:i:s") 
                 ]
             );
@@ -88,7 +89,7 @@ class FormularioController extends Controller
             if($repuestos == true)
             {
                 $data = [
-                    'subject'   => 'Informacion de Contacto - '.strtoupper($request->vehiculo_modelo_nombre),
+                    'subject'   => 'Solicitud de Repuesto - '.strtoupper($request->vehiculo_modelo_nombre),
                     'from'      => 'hyundai@curbe.com.ec',
                     'from_name' => 'Hyundai Ecuador',
                     'contacto' => 'Juan Crespo',
@@ -96,15 +97,15 @@ class FormularioController extends Controller
                     'apellido' => $request->apellido,
                     'celular' => $request->celular,
                     'email' => $request->email,
-                    'ciudad' => $request->ciudad,
+                    'ciudad' => $request->ciudad_nombre,
                     'modelo' => $request->vehiculo_modelo_nombre,
+                    'repuesto' => $request->vehiculo_repuesto,
                     'anio' => $request->vehiculo_anio,
                     'chasis' => $request->vehiculo_chasis,
-                    'comentarios' => $request->comentarios,
                     'fecha_creacion' => date("Y-m-d H:i:s") 
                 ];
                 // Obtener Remitentes
-                Mail::to($request->email, "Juan Crespo")->send(new PesadosMail($data));
+                Mail::to($request->email, "Juan Crespo")->send(new RepuestosMail($data));
                 $json = [ 'status'=> 'Ok', 'respuesta'=> 'Formulario Repuestos Ingresado Correctamente'];
                 return $json;
             }

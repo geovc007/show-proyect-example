@@ -81,8 +81,8 @@ class CotizadorController extends Controller
                     {
                         $data = [
                             'subject'   => 'Cotizacion Hyundai - '.strtoupper($request->vehiculo_modelo_nombre),
-                            'from'      => 'hyundai@curbe.com.co',
-                            'from_name' => 'Hyundai Colombia',
+                            'from'      => 'hyundai@curbe.com.ec',
+                            'from_name' => 'Hyundai Ecuador',
                             'modelo' => $request->vehiculo_modelo_nombre,
                             'cliente' => $request->nombre." ".$request->apellido,
                             'mod' => $request->vehiculo_modelo
@@ -90,8 +90,8 @@ class CotizadorController extends Controller
                         Mail::to($request->email, $request->nombre)->send(new CotizacionMail($data));
                         $data = [
                             'subject'   => 'Cotizacion Hyundai - '.strtoupper($request->vehiculo_modelo_nombre),
-                            'from'      => 'hyundai@curbe.com.co',
-                            'from_name' => 'Hyundai Colombia',
+                            'from'      => 'hyundai@curbe.com.ec',
+                            'from_name' => 'Hyundai Ecuador',
                             'contacto' => $request->contacto_nombre,
                             'empresa' => $request->empresa,
                             'modelo' => strtoupper($request->vehiculo_modelo_nombre),
@@ -161,8 +161,8 @@ class CotizadorController extends Controller
                 {
                     $data = [
                         'subject'   => 'Cotizacion Hyundai - '.strtoupper($request->vehiculo_modelo_nombre),
-                        'from'      => 'hyundai@curbe.com.co',
-                        'from_name' => 'Hyundai Colombia',
+                        'from'      => 'hyundai@curbe.com.ec',
+                        'from_name' => 'Hyundai Ecuador',
                         'modelo' => $request->vehiculo_modelo_nombre,
                         'cliente' => $request->nombre." ".$request->apellido,
                         'mod' => $request->vehiculo_modelo
@@ -170,8 +170,8 @@ class CotizadorController extends Controller
                     Mail::to($request->email, $request->nombre)->send(new CotizacionMail($data));
                     $data = [
                         'subject'   => 'Cotizacion Hyundai - '.strtoupper($request->vehiculo_modelo_nombre),
-                        'from'      => 'hyundai@curbe.com.co',
-                        'from_name' => 'Hyundai Colombia',
+                        'from'      => 'hyundai@curbe.com.ec',
+                        'from_name' => 'Hyundai Ecuador',
                         'contacto' => "Usuario Hyundai",
                         'empresa' => $request->empresa,
                         'modelo' => strtoupper($request->vehiculo_modelo_nombre),
@@ -218,8 +218,8 @@ class CotizadorController extends Controller
                     {
                         $data = [
                             'subject'   => 'Cotizacion Hyundai, '.strtoupper($request->vehiculo_modelo_nombre),
-                            'from'      => 'hyundai@curbe.com.co',
-                            'from_name' => 'Hyundai Colombia',
+                            'from'      => 'hyundai@curbe.com.ec',
+                            'from_name' => 'Hyundai Ecuador',
                             'modelo' => $request->vehiculo_modelo_nombre,
                             'cliente' => $request->nombre." ".$request->apellido,
                             'mod' => $request->vehiculo_modelo
@@ -227,8 +227,8 @@ class CotizadorController extends Controller
                         Mail::to($request->email, $request->nombre)->send(new CotizacionMail($data));
                         $data = [
                             'subject'   => 'Cotizacion Hyundai - '.strtoupper($request->vehiculo_modelo_nombre),
-                            'from'      => 'hyundai@curbe.com.co',
-                            'from_name' => 'Hyundai Colombia',
+                            'from'      => 'hyundai@curbe.com.ec',
+                            'from_name' => 'Hyundai Ecuador',
                             'contacto' => "Usuario Hyundai",
                             'empresa' => $request->empresa,
                             'modelo' => strtoupper($request->vehiculo_modelo_nombre),
@@ -260,60 +260,6 @@ class CotizadorController extends Controller
         } catch (Throwable $th) {
             //throw $th;
             $json = [ 'status'=> 'Error', 'respuesta'=> 'Error al Ingresar Cotizacion, catch', 'cotizacion'=> 0];
-            return $json;
-        }
-    }
-
-    public function posventa(Request $request)
-    {
-        try 
-        {
-            // Posventa
-            $insert = DB::table('posventa')->insert(
-                [
-                    'nombre' => $request->nombre,
-                    'telefono' => $request->telefono,
-                    'ciudad' => $request->ciudad,
-                    'correo' => $request->correo,
-                    'cantidad' => $request->cantidad,
-                    'modelo' => $request->modelo,
-                    'vin' => $request->vin,
-                    'hora' => $request->hora,
-                    'informacion' => $request->informacion, 
-                    'fecha_creacion' => date("Y-m-d H:i:s")
-                ]
-            );
-            if($insert == true)
-            {
-                $data = [
-                    'subject'   => 'Tiene una Nueva Solicitud de Repuesto',
-                    'from'      => 'hyundai@curbe.com.co',
-                    'from_name' => 'Hyundai Colombia',
-                    'contacto' => 'Usuario Hyundai',
-                    'cliente' => $request->nombre,
-                    'telefono' => $request->telefono,
-                    'correo' => $request->correo,
-                    'ciudad' => $request->ciudad_nombre,
-                    'hora' => $request->hora,
-                    'cantidad' => $request->cantidad,
-                    'modelo' => $request->modelo_nombre,
-                    'vin' => $request->vin,
-                    'informacion' => $request->informacion
-                ];
-        
-                Mail::to($request->correo, $request->nombre)->send(new PosventaMail($data));
-
-                $json = [ 'status'=> 'Ok', 'respuesta'=> 'Su Solicitud ha sido realizada Correctamente'];
-                return $json;
-            }
-            else
-            {
-                $json = [ 'status'=> 'Error', 'respuesta'=> 'Error al Realizar su Solicitud'];
-                return $json;
-            }
-        } catch (Throwable $th) {
-            //throw $th;
-            $json = [ 'status'=> 'Error', 'respuesta'=> 'Error al Realizar su Solicitud, catch'.$th];
             return $json;
         }
     }
