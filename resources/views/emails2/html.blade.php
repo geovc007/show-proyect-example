@@ -3,7 +3,7 @@
         <div style='text-align:left;'>
             <img src="{{ asset('public/images/header/cotizacion.png') }}" alt="Hyundai" style='width:100%;'/>
         </div>
-        <div style='font-size:1.3em;  padding: 0 15px'>Estimado(a) <strong>{{$data['cliente']}}</strong>, su cotización a sido realizada con éxito, pronto nos pondremos en contacto con usted.</div><br>
+        <div style='font-size:1.3em;  padding: 0 15px'>Estimado(a) <strong>{{$data['cliente']}}</strong>, gracias por contactarnos, pronto nos pondremos en contacto con usted.</div><br>
         <div style='text-align:left;'>
             <img src={{asset('public/images/body/body-'.$data["mod"].'.jpg')}} alt="Hyundai" style='width:100%;'>
         </div>

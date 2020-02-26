@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Mail\PosventaMail;
 use App\Mail\CotizacionMail;
-use App\Mail\CotizacionAsesorMail;
+use App\Mail\CotizacionPesadosMail;
 use Mail;
 
-class CotizadorController extends Controller 
+class CotizadorPesadosController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -83,7 +83,7 @@ class CotizadorController extends Controller
                             'subject'   => 'Cotizacion Hyundai - '.strtoupper($request->vehiculo_modelo_nombre),
                             'from'      => 'hyundai@curbe.com.ec',
                             'from_name' => 'Hyundai Ecuador',
-                            'modelo' => $request->vehiculo_modelo_nombre,
+                            'modelo' => strtolower($request->vehiculo_modelo_nombre),
                             'cliente' => $request->nombre." ".$request->apellido,
                             'mod' => $request->vehiculo_modelo
                         ];
@@ -109,7 +109,7 @@ class CotizadorController extends Controller
                             'anio' => $request->vehiculo_anio,
                             'precio' => $request->vehiculo_precio
                         ];
-                        Mail::to($request->contacto_email, $request->contacto_nombre)->send(new CotizacionAsesorMail($data));
+                        Mail::to($request->contacto_email, $request->contacto_nombre)->send(new CotizacionPesadosMail($data));
                         $json = [ 'status'=> 'Ok', 'respuesta'=> 'Cotizacion Ingresada Correctamente', 'cotizacion'=> $request->id, "estado"=> $cotizacion];
                         return $json;
                     }
@@ -189,7 +189,7 @@ class CotizadorController extends Controller
                         'anio' => $request->vehiculo_anio,
                         'precio' => $request->vehiculo_precio
                     ];
-                    Mail::to($request->email, $request->nombre)->send(new CotizacionAsesorMail($data));
+                    Mail::to($request->email, $request->nombre)->send(new CotizacionPesadosMail($data));
                     // Ya existe modelo-detalle-anio repetido solo envio ok
                     $json = [ 'status'=> 'Ok', 'respuesta'=> 'Cotizacion Ingresada Correctamente', 'cotizacion'=> $cod_cab, "estado"=> $cotizacion];
                     return $json;

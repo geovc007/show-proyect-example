@@ -27,7 +27,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/concesionarios/{estado}/{tipo}/{marca}/{ciudad}', 'API\CoreController@concesionarios');
     Route::get('/concesionario_informacion/{tipo}/{empresa}/{almacen}', 'API\CoreController@concesionario_informacion');
     // Cotizador Route
-    Route::post('/cotizador/ingresar', 'CotizadorController@create');
+    Route::post('/cotizador/ingresar', 'CotizadorPesadosController@create');
 
     // Route::get('/vin/{vin}', 'API\CoreController@obtener_vin');
     
