@@ -18,7 +18,7 @@
             <tr><td width='150px'><strong>Nombre:</strong> </td><td>{{$data['cliente']}}</td></tr>
             <tr><td width='150px'><strong>Teléfono:</strong> </td><td>{{$data['telefono']}}</td></tr>
             <tr><td width='150px'><strong>Email:</strong> </td><td>{{$data['email']}}</td></tr>
-            <tr><td width='150px'><strong>Dirección:</strong> </td><td>{{$data['direccion']}}</td></tr>
+            <tr><td width='150px'><strong>Comentario:</strong> </td><td>{{$data['comentario']}}</td></tr>
         </table><br>
         <table rules='all' style='border-color:#666;' border='1' cellpadding='10' width='100%'>
             <tr>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Mail\PosventaMail;
 use App\Mail\CotizacionMail;
-use App\Mail\CotizacionPesadosMail;
+use App\Mail\CotizacionPesadosAsesorMail;
 use Mail;
 
 class CotizadorPesadosController extends Controller 
@@ -54,10 +54,11 @@ class CotizadorPesadosController extends Controller
                         'PRC_CLIENTE_NOMBRE' => $request->nombre,
                         'PRC_CLIENTE_APELLIDO' => $request->apellido,
                         'PRC_CLIENTE_EMAIL' => $request->email,
-                        'PRC_CLIENTE_DIRECCION' => $request->direccion,
+                        'PRC_CLIENTE_DIRECCION' => "Sin Direccion",
                         'PRC_CLIENTE_TELEFONO' => $request->telefono,
                         'PRC_TOKEN' => $request->token,
                         'PRC_TIPO_VEHICULO' => $request->tipo_vehiculo,
+                        'PRC_COMENTARIO' => $request->comentario
                     ]
                 );
                 if($insert_cab == true)
@@ -100,7 +101,7 @@ class CotizadorPesadosController extends Controller
                             'nombre' => $request->nombre,
                             'apellido' => $request->apellido,
                             'email' => $request->email,
-                            'direccion' => $request->direccion,
+                            'comentario' => $request->comentario,
                             'telefono' => $request->telefono,
                             'ciudad' => $request->ciudad_nombre,
                             'concesionario' => $request->concesionario_nombre,
@@ -109,7 +110,7 @@ class CotizadorPesadosController extends Controller
                             'anio' => $request->vehiculo_anio,
                             'precio' => $request->vehiculo_precio
                         ];
-                        Mail::to($request->contacto_email, $request->contacto_nombre)->send(new CotizacionPesadosMail($data));
+                        Mail::to($request->contacto_email, $request->contacto_nombre)->send(new CotizacionPesadosAsesorMail($data));
                         $json = [ 'status'=> 'Ok', 'respuesta'=> 'Cotizacion Ingresada Correctamente', 'cotizacion'=> $request->id, "estado"=> $cotizacion];
                         return $json;
                     }
@@ -180,7 +181,7 @@ class CotizadorPesadosController extends Controller
                         'nombre' => $request->nombre,
                         'apellido' => $request->apellido,
                         'email' => $request->email,
-                        'direccion' => $request->direccion,
+                        'comentario' => $request->comentario,
                         'telefono' => $request->telefono,
                         'ciudad' => $request->ciudad_nombre,
                         'concesionario' => $request->concesionario_nombre,
@@ -189,7 +190,7 @@ class CotizadorPesadosController extends Controller
                         'anio' => $request->vehiculo_anio,
                         'precio' => $request->vehiculo_precio
                     ];
-                    Mail::to($request->email, $request->nombre)->send(new CotizacionPesadosMail($data));
+                    Mail::to($request->email, $request->nombre)->send(new CotizacionPesadosAsesorMail($data));
                     // Ya existe modelo-detalle-anio repetido solo envio ok
                     $json = [ 'status'=> 'Ok', 'respuesta'=> 'Cotizacion Ingresada Correctamente', 'cotizacion'=> $cod_cab, "estado"=> $cotizacion];
                     return $json;
@@ -237,7 +238,7 @@ class CotizadorPesadosController extends Controller
                             'nombre' => $request->nombre,
                             'apellido' => $request->apellido,
                             'email' => $request->email,
-                            'direccion' => $request->direccion,
+                            'comentario' => $request->comentario,
                             'telefono' => $request->telefono,
                             'ciudad' => $request->ciudad_nombre,
                             'concesionario' => $request->concesionario_nombre,
@@ -246,7 +247,7 @@ class CotizadorPesadosController extends Controller
                             'anio' => $request->vehiculo_anio,
                             'precio' => $request->vehiculo_precio
                         ];
-                        Mail::to($request->email, $request->nombre)->send(new CotizacionAsesorMail($data));
+                        Mail::to($request->email, $request->nombre)->send(new CotizacionPesadosAsesorMail($data));
                         $json = [ 'status'=> 'Ok', 'respuesta'=> 'Cotizacion Ingresada Correctamente', 'cotizacion'=> $cod_cab, "estado"=> $cotizacion];
                         return $json;
                     }
