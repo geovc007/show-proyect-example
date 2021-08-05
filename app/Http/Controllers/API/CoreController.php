@@ -64,70 +64,20 @@ class CoreController extends Controller
         return response()->json($concesionario_informacion);
     }
 
-    // public function obtener_vin($vin)
-    // {
-    //     $response  = DB::table('vin')
-    //         ->where('vin', $vin)
-    //         ->get();
-    //     return response()->json($response);
-    // }
+    public function ciudades_cotizador_empresa($estado, $tipos, $empresa)
+    {
+        $tipo_almacen = explode('-', $tipos);
+        $ciudades = DB::table('ciudad')
+            ->select('CIU_CODIGO', 'CIU_NOMBRE')
+            ->join('almacen', 'ciudad.CIU_CODIGO', '=', 'almacen.ALM_CIUDAD')
+            ->where('ALM_ESTADO', $estado)
+            ->where('ALM_EMPRESA', $empresa)
+            ->whereIn('ALM_TIPO', $tipo_almacen)
+            ->orderBy('CIU_NOMBRE')
+            ->get();
 
-    // public function modelos_repuestos($estado)
-    // {
-    //     $response = DB::table('modelo')
-    //         ->select('MOD_CODIGO', 'MOD_NOMBRE')
-    //         ->where('MOD_ESTADO', $estado)
-    //         ->orderBy('MOD_NOMBRE')
-    //         ->get();
-
-    //     return response()->json($response);
-    // }
-
-    // public function versiones_cotizador($estado, $modelo)
-    // {
-    //     $anio = DB::table('version')->select('version_anio.VEA_ANIO')
-    //         ->join('version_anio', 'version.VER_CODIGO', '=', 'version_anio.VEA_VERSION')
-    //         ->where('version.VER_ESTADO', $estado)->where('version.VER_MODELO', $modelo)->max('VEA_ANIO');
-    //     // Versiones
-    //     $versiones = DB::table('version')
-    //         ->select('version.VER_CODIGO', 'version.VER_NOMBRE', 'version_anio.VEA_ANIO', 'version_anio.VEA_PRECIO_PVP')
-    //         ->join('version_anio', 'version.VER_CODIGO', '=', 'version_anio.VEA_VERSION')
-    //         ->where('version.VER_ESTADO', $estado)->where('version.VER_MODELO', $modelo)
-    //         ->where('version_anio.VEA_ANIO', $anio)->get();
-    //     //->where('VEA_ANIO', function ($query) {$query->select(DB::raw('MAX(VEA_ANIO)'))->from('version_anio')->whereRaw('version_anio.VER_CODIGO = version.VER_CODIGO'); })->get();
-    //     return $versiones;
-    // }
-
-    
-    
-
-    // public function concesionarios_cotizador_empresa($estado, $tipos, $ciudad, $empresa)
-    // {
-    //     $tipo_almacen = explode('-', $tipos);
-    //      $concesionarios = DB::table('almacen')
-    //         ->select('ALM_EMPRESA', 'ALM_NOMBRE', 'ALM_CODIGO', 'ALM_TIPO')
-    //         ->where('ALM_ESTADO', $estado)
-    //         ->where('ALM_CIUDAD', $ciudad)
-    //         ->where('ALM_EMPRESA', $empresa)
-    //         ->whereIn('ALM_TIPO', $tipo_almacen)->get();
-    //      return $concesionarios;
-    // }
-
-    // public function modelo_colores_cotizador($modelo, $version)
-    // {
-    //     // Anio Mayor
-    //     $anio = DB::table('version_anio_color')->select('VAC_ANIO')
-    //         ->where('VAC_VERSION', $version)->max('VAC_ANIO');
-    //     // Colores
-    //     $colores = DB::table('version_anio_color')
-    //         ->select('VAC_COLOR', 'COL_REF_HEX', 'COL_NOMBRE')
-    //         ->join('color', 'color.COL_CODIGO', '=', 'version_anio_color.VAC_COLOR')
-    //         ->where('VAC_VERSION', $version)
-    //         ->where('VAC_ANIO', $anio)->get();
-
-    //     $colores_unico = $colores->unique('VAC_COLOR')->values()->all();
-    //     return $colores_unico;
-    // }
-
+        $ciudades_unicas = $ciudades->unique('CIU_CODIGO')->values()->all();
+        return response()->json($ciudades_unicas);
+    }
 
 }

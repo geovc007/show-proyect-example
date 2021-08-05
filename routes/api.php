@@ -40,7 +40,7 @@ Route::group(['middleware' => ['cors']], function () {
     // Route::get('/modelo_colores/{modelo}/{version}', 'API\CoreController@modelo_colores_cotizador');
     
     
-    // // Rutas Cotizador Empresa
-    // Route::get('/ciudades_empresa/{estado}/{tipos}/{empresa}', 'API\CoreController@ciudades_cotizador_empresa');
+    // Rutas Cotizador Empresa
+    Route::get('/ciudades_empresa/{estado}/{tipos}/{empresa}', 'API\CoreController@ciudades_cotizador_empresa');
     // Route::get('/concesionarios_empresa/{estado}/{tipos}/{ciudad}/{empresa}', 'API\CoreController@concesionarios_cotizador_empresa');
 });
